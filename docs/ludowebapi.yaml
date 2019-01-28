@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Ludo Game API
+  description: This is an API for the game Ludo
+  version: 1.0.0-oas3
+servers:
+- url: /
+paths:
+  /api/game/listgames:
+    get:
+      summary: List all the existing games
+      responses:
+        200:
+          description: Returns a list of all existing games
+  /api/game/create:
+    post:
+      summary: create the game
+      responses:
+        200:
+          description: game created returnes game board id
+  /api/game/{gameId}/start:
+    post:
+      summary: start the game
+      description: start a new Ludo game session
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: game started
+        400:
+          description: failed to start game
+  /api/game/{gameId}/current_player:
+    get:
+      summary: Returns which player turn is is
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Name of current player
+  /api/game/{gameId}/roll_dice:
+    get:
+      summary: Roll the dice
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: color
+        in: query
+        description: Color of the player
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: User rolled the dice
+        400:
+          description: User wasn't allowed to roll the dice
+  /api/game/{gameId}/player/info:
+    get:
+      summary: Show info about player pieces
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: color
+        in: query
+        description: Color of the player
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Info about player pieces
+  /api/game/{gameId}/player/move:
+    get:
+      summary: Show info about player pieces
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: color
+        in: query
+        description: Color of the player
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: piece
+        in: query
+        description: Which piece to move
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: steps
+        in: query
+        description: How many steps to move
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Info about player pieces
+  /api/game/{gameId}/add_player:
+    post:
+      summary: add a player with color id
+      parameters:
+      - name: gameId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: color
+        in: query
+        description: Color of the player
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: game started
+        400:
+          description: failed to start game
+components: {}
